@@ -1,0 +1,101 @@
+2024-07-23 10:15:30.123  INFO 12345 --- [main] com.example.Application                  : Starting Application on localhost with PID 12345
+2024-07-23 10:15:30.125  INFO 12345 --- [main] com.example.Application                  : No active profile set, falling back to default profiles: default
+2024-07-23 10:15:30.890  INFO 12345 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-07-23 10:15:30.901  INFO 12345 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-23 10:15:30.901  INFO 12345 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2024-07-23 10:15:31.012  INFO 12345 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-23 10:15:31.012  INFO 12345 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1234 ms
+2024-07-23 10:15:31.456  INFO 12345 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-07-23 10:15:31.467  INFO 12345 --- [main] com.example.Application                  : Started Application in 2.345 seconds (JVM running for 3.456)
+2024-07-23 10:16:45.123  INFO 12345 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-23 10:16:45.123  INFO 12345 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-23 10:16:45.124  INFO 12345 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-07-23 10:17:12.456 ERROR 12345 --- [http-nio-8080-exec-2] c.e.controller.UserController            : Error processing user request
+java.lang.NullPointerException: Cannot invoke "String.length()" because "username" is null
+	at com.example.service.UserService.validateUser(UserService.java:45)
+	at com.example.controller.UserController.createUser(UserController.java:28)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	... 23 more
+2024-07-23 10:17:12.458  WARN 12345 --- [http-nio-8080-exec-2] o.s.web.servlet.mvc.support.DefaultHandlerExceptionResolver : Resolved [java.lang.NullPointerException: Cannot invoke "String.length()" because "username" is null]
+2024-07-23 10:18:30.789  INFO 12345 --- [http-nio-8080-exec-3] c.e.controller.ProductController         : Fetching product with ID: 123
+2024-07-23 10:18:30.890 ERROR 12345 --- [http-nio-8080-exec-3] c.e.service.ProductService               : Database connection failed
+org.springframework.dao.DataAccessResourceFailureException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connection refused
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:82)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:376)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:465)
+	at com.example.repository.ProductRepository.findById(ProductRepository.java:23)
+	at com.example.service.ProductService.getProduct(ProductService.java:34)
+	at com.example.controller.ProductController.getProduct(ProductController.java:42)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	... 15 more
+Caused by: java.sql.SQLException: Connection refused
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:836)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at org.springframework.jdbc.datasource.DriverManagerDataSource.getConnectionFromDriverManager(DriverManagerDataSource.java:155)
+	at org.springframework.jdbc.datasource.DriverManagerDataSource.getConnectionFromDriver(DriverManagerDataSource.java:146)
+	at org.springframework.jdbc.datasource.AbstractDriverBasedDataSource.getConnectionFromDriver(AbstractDriverBasedDataSource.java:205)
+	at org.springframework.jdbc.datasource.AbstractDriverBasedDataSource.getConnection(AbstractDriverBasedDataSource.java:169)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79)
+	... 25 more
+2024-07-23 10:18:30.892  WARN 12345 --- [http-nio-8080-exec-3] o.s.web.servlet.mvc.support.DefaultHandlerExceptionResolver : Resolved [org.springframework.dao.DataAccessResourceFailureException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connection refused]
+2024-07-23 10:19:45.234  INFO 12345 --- [http-nio-8080-exec-4] c.e.controller.OrderController           : Processing order request
+2024-07-23 10:19:45.345 ERROR 12345 --- [http-nio-8080-exec-4] c.e.service.OrderService                 : Invalid order data
+java.lang.IllegalArgumentException: Order amount cannot be negative: -100.0
+	at com.example.service.OrderService.validateOrder(OrderService.java:67)
+	at com.example.service.OrderService.processOrder(OrderService.java:45)
+	at com.example.controller.OrderController.createOrder(OrderController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	... 18 more
+2024-07-23 10:19:45.347  WARN 12345 --- [http-nio-8080-exec-4] o.s.web.servlet.mvc.support.DefaultHandlerExceptionResolver : Resolved [java.lang.IllegalArgumentException: Order amount cannot be negative: -100.0]
+2024-07-23 10:20:15.567  INFO 12345 --- [http-nio-8080-exec-5] c.e.controller.FileController            : Uploading file: document.pdf
+2024-07-23 10:20:15.678 ERROR 12345 --- [http-nio-8080-exec-5] c.e.service.FileService                  : File processing failed
+java.io.IOException: No space left on device
+	at java.base/java.io.FileOutputStream.writeBytes(Native Method)
+	at java.base/java.io.FileOutputStream.write(FileOutputStream.java:354)
+	at java.base/java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:81)
+	at java.base/java.io.BufferedOutputStream.flush(BufferedOutputStream.java:142)
+	at com.example.service.FileService.saveFile(FileService.java:89)
+	at com.example.controller.FileController.uploadFile(FileController.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	... 12 more
+2024-07-23 10:20:15.680  WARN 12345 --- [http-nio-8080-exec-5] o.s.web.servlet.mvc.support.DefaultHandlerExceptionResolver : Resolved [java.io.IOException: No space left on device]
+2024-07-23 10:21:00.123  INFO 12345 --- [scheduling-1] c.e.scheduler.DataCleanupScheduler       : Starting scheduled data cleanup
+2024-07-23 10:21:00.234  INFO 12345 --- [scheduling-1] c.e.scheduler.DataCleanupScheduler       : Data cleanup completed successfully
+
