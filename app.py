@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify, Response
 app = Flask(__name__)
 
 # ---------- Config ----------
-DEFAULT_PORT = int(os.getenv("PORT", "8000"))
+DEFAULT_PORT = int(os.getenv("PORT", "8123"))
 AUTO_REFRESH_SECONDS = 10  # client pull interval for "real-time"
 SEVERITY_PALETTE = {
     "Critical": "#DC2626",  # red-600
@@ -423,19 +423,22 @@ function render(data) {{
     const wrapper = document.createElement('details');
     wrapper.className = 'rounded-xl border p-3';
     const sevColor = SEVERITY_COLORS[e.severity] || '#64748B';
-    wrapper.innerHTML = `
-      <summary class="cursor-pointer flex flex-wrap items-center gap-2">
-        <span class="font-semibold">${{e.type}}</span>
-        <span class="text-xs px-2 py-0.5 rounded-full" style="background:${{sevColor}}20;color:${{sevColor}};border:1px solid ${{sevColor}}40">${{e.severity}}</span>
-        <span class="text-slate-500 text-sm">#${{e.index}}</span>
-        <span class="text-slate-400 text-xs ml-auto">${{e.timestamp_raw || 'No timestamp'}}</span>
-      </summary>
-      <div class="mt-2 grid gap-2 text-sm">
-        <div><span class="text-slate-500">Message:</span> ${{e.message || '—'}}</div>
-        <div><span class="text-slate-500">Location:</span> ${{e.location || '—'}}</div>
-        ${{e.stack ? `<pre class="bg-slate-50 rounded p-2 overflow-x-auto text-[11px]">${{e.stack.replace(/[<>&]/g, s => ({{'<':'&lt;','>':'&gt;','&':'&amp;'}})[s]))}}</pre>` : ''}}
-      </div>
-    `;
+wrapper.innerHTML = `
+  <summary class="cursor-pointer flex flex-wrap items-center gap-2">
+    <span class="font-semibold">${{e.type}}</span>
+    <span class="text-xs px-2 py-0.5 rounded-full"
+          style="background:${{sevColor}}20;color:${{sevColor}};border:1px solid ${{sevColor}}40">
+      ${{e.severity}}
+    </span>
+    <span class="text-slate-500 text-sm">#${{e.index}}</span>
+    <span class="text-slate-400 text-xs ml-auto">${{e.timestamp_raw || 'No timestamp'}}</span>
+  </summary>
+  <div class="mt-2 grid gap-2 text-sm">
+    <div><span class="text-slate-500">Message:</span> ${{e.message || '—'}}</div>
+    <div><span class="text-slate-500">Location:</span> ${{e.location || '—'}}</div>
+    ${{safeStack ? `<pre class="bg-slate-50 rounded p-2 overflow-x-auto text-[11px]">${{safeStack}}</pre>` : ''}}
+  </div>
+`;
     list.appendChild(wrapper);
   }});
 }}
@@ -470,4 +473,4 @@ def index():
 
 # ---------- Entry ----------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=DEFAULT_PORT, debug=False)
+    app.run(host="0.0.0.0", port=DEFAULT_PORT, debug=True)
